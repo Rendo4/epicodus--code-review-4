@@ -21,11 +21,26 @@ _Hello and thank you for viewing 'Next Level Pizzaria' application! This project
 |          |  |
 
 ## TTD Specs
-_Describe: ???()
+_Describe: newPizza.calucateCost()
 
-Test: "It should return a warning 'field is required' if nothing is inputted"
-Code: looping(0);
-Expected Output: 'field is required'
+Test: "It should add the value of price based off the size of the pizza."
+Code: let newPizza = new Pizza(10,...);
+newPizza.calculateCost();
+Expected Output: newPizza.price = 7
+
+Test: "It should adjust the price of the pizza based off multiple factors of the pizza such as size, stuffed crust, and amount of toppings"
+Code: let newPizza = new Pizza (10, ...);
+newPizza.toppings.push("pepperioni");  
+Expected Output: newPizza.price = 9
+
+_Describe: newOrder.addPizza()
+
+Test: "It should store a created pizza inside the object Order, and inside the object pizzas"
+Code: let newPizza = new Pizza("Ted",10,...);
+let newOrder = new Order(); 
+newOrder.addPizza(newPizza);
+newOrder.pizzas["Ted"]
+Expected Output: returns newPizza
 
 
 ## Setup/Installation Requirements
