@@ -1,11 +1,25 @@
 function Order() {
   this.pizzas = {};
   this.total = 0;
+  this.currentId = 0;
 }
 
 Order.prototype.addPizza = function (pizza) {
+  pizza.id = this.assignId();
   this.pizzas[pizza.person] = pizza;
 }
+
+Order.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
+};
+
+Order.prototype.findContact = function(id) {
+  if (this.pizzas[id] != undefined) {
+    return this.pizzas[id];
+  }
+  return false;
+};
 function Pizza(person, size, crust, sauce,) {
   this.person = person;
   this.size = size;
