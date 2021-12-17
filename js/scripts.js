@@ -6,6 +6,7 @@ function Order() {
 Order.prototype.addPizza = function (pizza) {
   pizza.id = this.assignId();
   this.pizzas.push(pizza);
+  this.total += pizza.price;
 }
 
 Order.prototype.assignId = function() {
@@ -28,6 +29,7 @@ Order.prototype.deletePizza = function (id) {
   for (let i = 0; i < this.pizzas.length; i++) {
     if (this.pizzas[i]) {
       if (this.pizzas[i].id == id) {
+        this.total -= this.pizzas[i].price;
         delete this.pizzas[i];
         return true;
       }
@@ -76,7 +78,12 @@ function displayPizzaDetails(orderToDisplay) {
     htmlForPizzaInfo += "<li id=" + pizza.id + ">" + pizza.size + " " + pizza.sauce + "-" + pizza.toppings + " " + pizza.person +" $" + pizza.price + "</li>";
   })
   pizzasList.html(htmlForPizzaInfo);
+  displayTotal();
 };
+
+function displayTotal(Order) {
+  $(".total").html(order.total);
+}
 
 function showPizza(pizzaId) {
   const pizza = order.findPizza(pizzaId)
@@ -96,8 +103,6 @@ function attachContactListeners() {
   });
   $("#buttons").on("click", ".deleteButton", function() {
     order.deletePizza(this.id);
-    $("#show-order").hide();
-    $("#add-pizza").hide();
     displayPizzaDetails(order);
   });
 }
