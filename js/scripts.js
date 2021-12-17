@@ -1,12 +1,11 @@
 function Order() {
-  this.pizzas = {};
+  this.pizzas = [];
   this.total = 0;
   this.currentId = 0;
 }
-
 Order.prototype.addPizza = function (pizza) {
   pizza.id = this.assignId();
-  this.pizzas[pizza.person] = pizza;
+  this.pizzas.push(pizza);
 }
 
 Order.prototype.assignId = function() {
@@ -14,12 +13,16 @@ Order.prototype.assignId = function() {
   return this.currentId;
 }
 
-Order.prototype.findPizza = function(id) {
-  if (this.pizzas[id] != undefined) {
-    return this.pizzas[id];
+Order.prototype.findPizza = function (id) {
+  for (let i = 0; i < this.pizzas.length; i++) {
+    if (this.pizzas[i]) {
+      if (this.pizzas[i].id == id) {
+        return this.pizzas[i];
+      }
+    }
   }
   return false;
-}
+};
 
 Order.prototype.deletePizza = function (id) {
   for (let i = 0; i < this.pizzas.length; i++) {
@@ -32,57 +35,89 @@ Order.prototype.deletePizza = function (id) {
   }
   return false;
 };
-function Pizza(person, size, crust, sauce, toppings) {
+function Pizza(person, size, sauce, toppings, price) {
   this.person = person;
   this.size = size;
-  this.crust = false;
   this.sauce = sauce;
   this.toppings = toppings;
+  this.price = price;
 }
 
-Pizza.prototype.calculateCost = function () {
+function calculateCost(tops, inputtedSize) {
   let sizePrice = 0;
   let crustPrice = 0;
   let toppingsPrice = 0;
-  if (this.size === 10) {
+  if (inputtedSize === 10) {
     sizePrice = 7;
-  } else if (this.size === 12) {
+  } else if (inputtedSize === 12) {
     sizePrice = 10;
   } else {
     sizePrice = 14;
   }
-  if (this.crust === true) {
-    crustPrice = 3; 
-  }
-  if (this.toppings.length === 1) {
+  if (tops.length === 1) {
     toppingsPrice = 2;
-  } else if (this.toppings.length === 2 || this.toppings.length === 3){
+  } else if (tops.length === 2 || tops.length === 3){
     toppingsPrice = 5;
-  } else if (this.toppings.length > 3){
+  } else if (tops.length > 3){
     toppingsPrice = 8;
   } else {
     toppingsPrice = 0;
   }
-  this.price = crustPrice + sizePrice + toppingsPrice;
-  return this.price
+  cost = sizePrice + toppingsPrice;
+  return cost
 }
 
 let order = new Order();
 
+function displayPizzaDetails(orderToDisplay) {
+  let pizzasList = $("ul#order");
+  let htmlForPizzaInfo = "";
+  orderToDisplay.pizzas.forEach(function (pizza) {
+    htmlForPizzaInfo += "<li id=" + pizza.id + ">" + pizza.size + " " + pizza.sauce + "-" + pizza.toppings + " " + pizza.person +" $" + pizza.price + "</li>";
+  })
+  pizzasList.html(htmlForPizzaInfo);
+};
+
+function showPizza(pizzaId) {
+  const pizza = order.findPizza(pizzaId)
+  $(".size").html(pizza.size);
+  $(".sauce").html(pizza.sauce);
+  $(".toppings").html(pizza.toppings);
+  $(".name").html(pizza.name);
+  $(".price").html(pizza.price);
+  let buttons = $("#buttons");
+  buttons.empty();
+  buttons.append("<button class='deleteButton' id=" + pizza.id + ">Delete<button>");
+}
+
+function attachContactListeners() {
+  $("ul#order").on("click", "li", function () {
+    showPizza(this.id);
+  });
+  $("#buttons").on("click", ".deleteButton", function() {
+    order.deletePizza(this.id);
+    $("#show-order").hide();
+    $("#add-pizza").hide();
+    displayPizzaDetails(order);
+  });
+}
 
 $(document).ready(function () {
+  attachContactListeners();
   $("form#createPizza").submit(function (event) {
     event.preventDefault();
     tops = []
     const inputtedName = $("input#name").val();
-    const inputtedSize = $("select#size").val();
+    const inputtedSize = parseInt($("select#size").val());
     const inputtedSauce = $("select#sauce").val();
     const inputtedToppings = $("input:checkbox[name=top]:checked").each(function(){
       const toppings = $(this).val()
       tops.push(toppings)
-      console.log(inputtedName);
     });
-    let newPizza = new Pizza(inputtedName, inputtedSize, false, inputtedSauce, tops);
+    let pizzaCost = calculateCost(tops, inputtedSize);
+    console.log(pizzaCost)
+    let newPizza = new Pizza(inputtedName, inputtedSize,inputtedSauce, tops, pizzaCost);
     order.addPizza(newPizza);
+    displayPizzaDetails(order);
   })
 })
