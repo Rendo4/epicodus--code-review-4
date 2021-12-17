@@ -14,7 +14,7 @@ Order.prototype.assignId = function() {
   return this.currentId;
 };
 
-Order.prototype.findContact = function(id) {
+Order.prototype.findPizza = function(id) {
   if (this.pizzas[id] != undefined) {
     return this.pizzas[id];
   }

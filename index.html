@@ -8,6 +8,38 @@
   <script src="js/scripts.js"></script>
 </head>
 <body>
+  <div class="container">
+    <form id ="createPizza">
+      <label for="size">Size:</label>
+      <select id="size">
+        <option value="10">Small</option>
+        <option value="12">Medium</option>
+        <option value="14">Large</option>
+      </select>
+      <label for="sauce">Sauce:</label>
+      <select id="sauce">
+        <option value="originial">Orginal Tomato</option>
+        <option value="garlic">Garlic parm</option>
+        <option value="bbq">Barbeque sauce</option>
+      </select>
+      <div id="tops">
+        <input type="checkbox" name="top" value=" Pepperoni">Pepperoni<br>
+        <input type="checkbox" name="top" value=" Ham">Ham<br>
+        <input type="checkbox" name="top" value=" Sausage">Sausage<br>
+        <input type="checkbox" name="top" value=" Beef">Beef<br>
+        <input type="checkbox" name="top" value=" Mushroom">Mushroom<br>
+        <input type="checkbox" name="top" value=" Olives">Olives<br>
+        <input type="checkbox" name="top" value=" Pineapple">Pineapple<br>
+        <input type="checkbox" name="top" value=" Onions">Onions<br>
+        <input type="checkbox" name="top" value=" Green peppers">Green Peppers<br>
+      </div>
+      <button type="submit" id="add-pizza" class="btn-primary">Add</button>
+    </form>
 
+  <h2>Your order:</h2>
+  <ul id="order">
+
+  </ul>
+</div>
 </body>
 </html>
