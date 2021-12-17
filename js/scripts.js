@@ -90,7 +90,6 @@ function showPizza(pizzaId) {
   $(".size").html(pizza.size);
   $(".sauce").html(pizza.sauce);
   $(".toppings").html(pizza.toppings);
-  $(".name").html(pizza.name);
   $(".price").html(pizza.price);
   let buttons = $("#buttons");
   buttons.empty();
@@ -104,6 +103,10 @@ function attachContactListeners() {
   $("#buttons").on("click", ".deleteButton", function() {
     order.deletePizza(this.id);
     displayPizzaDetails(order);
+    $(".size").html("");
+    $(".sauce").html("");
+    $(".toppings").html("");
+    $(".price").html("");
   });
 }
 

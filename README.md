@@ -15,23 +15,23 @@
 
 _Hello and thank you for viewing 'Next Level Pizzaria' application! This project uses concepts learned in my early weeks at epicodus. It combines HTML elements with bootstrap as well as a custom style sheet! The application will take a set of inputs and create a new object called pizzas to simulate creating an order of customizeable pizzas and return a cost based on your entries._
 
-| Input      | Output     | 
-| :---       |    |      
-|           | | 
-|          |  |
-
 ## TTD Specs
-_Describe: newPizza.calucateCost()
+_Describe: calculateCost();
 
-Test: "It should add the value of price based off the size of the pizza."
-Code: let newPizza = new Pizza(10,...);
-newPizza.calculateCost();
-Expected Output: newPizza.price = 7
+Test: "It should check the length of 'tops' to determine how many toppings were selected and change the price ."
+Code:let tops =["mushroom","onion"];
+calculateCost(tops, 10)
+Expected Output: pizza.price = 12
 
-Test: "It should adjust the price of the pizza based off multiple factors of the pizza such as size, stuffed crust, and amount of toppings"
-Code: let newPizza = new Pizza (10, ...);
-newPizza.toppings.push("pepperioni");  
-Expected Output: newPizza.price = 9
+Test: "It should adjust the price of the pizza based off the size of the pizza"
+Code: let tops = [];
+calculateCost(tops, 14)  
+Expected Output: pizza.price = 14
+
+Test: "It should adjust the price of the pizza based off the size of the pizza, and the amount of toppings"
+Code: let tops = ["mushroom","onion"];
+calculateCost(tops, 14)  
+Expected Output: pizza.price = 19
 
 _Describe: newOrder.addPizza()
 
@@ -42,6 +42,13 @@ newOrder.addPizza(newPizza);
 newOrder.pizzas["Ted"]
 Expected Output: returns newPizza
 
+_Describe: newOrder.findPizza()
+
+test: "it should locate a pizza in the order.pizzas array, and return the selected pizza"
+code: let newOrder = new Order() 
+let newPizza = new Pizza ("Ryan", "14", "original", ["mushroom", "onions"], 19)
+newOrder.findPizza(0);
+Expected Output: newPizza;
 
 ## Setup/Installation Requirements
 
