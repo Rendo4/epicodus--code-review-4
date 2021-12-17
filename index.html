@@ -10,6 +10,8 @@
 <body>
   <div class="container">
     <form id ="createPizza">
+      <label for="name">Who's it for:</label>
+      <input type="text" class="form-control" id="name">
       <label for="size">Size:</label>
       <select id="size">
         <option value="10">Small</option>
@@ -41,5 +43,12 @@
 
   </ul>
 </div>
+<div id="show-order">
+  <p><strong>Size: </strong><span class="size"></span></p>
+  <p><strong>Sauce: </strong><span class="sauce"></span></p>
+  <p><strong>Toppings: </strong><span class="toppings"></span></p>
+  <p><strong>Cost: $</strong><span class="cost"></span></p>
+  <div id="buttons"></div>
+  </div>
 </body>
 </html>
